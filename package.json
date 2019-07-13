@@ -10,6 +10,7 @@
     "react-dom": "^16.8.6",
     "react-flip-page": "^1.5.7",
     "react-perfect-scrollbar": "^1.5.3",
+    "react-progressbar": "^15.4.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {

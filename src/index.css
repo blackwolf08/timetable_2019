@@ -145,7 +145,10 @@ body {
   height: 50px;
 }
 
-.row_two {
+.progress {
+  height: 1px;
+  z-index: -1;
+  margin-top: -20px;
 }
 
 .class_list_item_class {
