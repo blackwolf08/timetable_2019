@@ -105,7 +105,7 @@ body {
   background-color: var(--N5);
   height: 50px;
   top: -25px;
-  z-index: 2;
+  z-index: 20;
   display: flex;
   justify-content: center;
   align-items: center;

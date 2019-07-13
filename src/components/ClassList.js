@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import FlipPage from 'react-flip-page';
+import moment from 'moment';
+
 export default class ClassList extends Component {
   state = {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    index: 0,
+    index: moment().isoWeekday() - 2,
     classes: {
       Monday: [
         {
@@ -31,19 +33,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -75,19 +77,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -119,19 +121,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -163,19 +165,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -207,19 +209,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -251,19 +253,19 @@ export default class ClassList extends Component {
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '02:00 - 02:50',
+          time: '14:00 - 14:50',
           className: 'Hindi',
           classRoom: 'FF8',
           nameOfTeacher: 'Parul Agarwal'
         },
         {
-          time: '03:00 - 03:50',
+          time: '15:00 - 15:50',
           className: 'English',
           classRoom: 'G5',
           nameOfTeacher: 'Monica'
         },
         {
-          time: '04:00 - 04:50',
+          time: '16:00 - 16:50',
           className: 'Software',
           classRoom: 'FF8',
           nameOfTeacher: 'Sunny Dhama'
@@ -285,8 +287,31 @@ export default class ClassList extends Component {
     let classes = [];
     if (days[index]) {
       classes = this.state.classes[days[index]].map((item, index) => {
+        console.log(parseInt(item.time.split(':')[0]));
+
         return (
-          <div key={index} className='class_list_item'>
+          <div
+            key={index}
+            className='class_list_item'
+            style={{
+              backgroundColor:
+                parseInt(moment().format('H')) >
+                parseInt(item.time.split(':')[0])
+                  ? parseInt(moment().format('H')) + 1 <
+                    parseInt(item.time.split(':')[0])
+                    ? '#FAE2E2'
+                    : '#FBE6A2'
+                  : '#D4EEE2',
+              boxShadow:
+                parseInt(moment().format('H')) >
+                parseInt(item.time.split(':')[0])
+                  ? parseInt(moment().format('H')) + 1 <
+                    parseInt(item.time.split(':')[0])
+                    ? '0 0 10px #FAE2E2'
+                    : '0 0 10px #FBE6A2'
+                  : '0 0 10px #D4EEE2'
+            }}
+          >
             <div className='class_list_item_row row_two'>
               <div className='class_list_item_class'>{item.className}</div>
               <div className='class_list_item_class_room'>{item.classRoom}</div>
@@ -300,6 +325,8 @@ export default class ClassList extends Component {
         );
       });
     }
+    let start_at = parseInt(moment().isoWeekday() - 2);
+    console.log(start_at);
     return (
       <div className='class_list_root'>
         <div className='week_day'>{days[index]}</div>
@@ -310,6 +337,7 @@ export default class ClassList extends Component {
             loopForever={true}
             onPageChange={this.onPageChange}
             animationDuration={1000}
+            startAt={start_at}
           >
             <div className='flip_page_root'>{classes}</div>
             <div className='flip_page_root'>{classes}</div>
