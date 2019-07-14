@@ -50,7 +50,6 @@ export default class CurrentClass extends Component {
       let classInfo = classes[day] || [];
       let OngoingClass = {};
 
-      console.log(day);
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
@@ -124,7 +123,7 @@ export default class CurrentClass extends Component {
       return (
         <div className='current_class_root' style={{ position: 'relative' }}>
           <div className='current_class_row row_one'>
-            <div>No Class today</div>
+            <div>No Class at the moment</div>
             <div className='current_class_classroom' />
           </div>
           <div className='current_class_row teacher_name' />

@@ -4,16 +4,17 @@ import moment from 'moment';
 
 export default class ClassList extends Component {
   state = {
-    days: ['MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT'],
+    days: ['MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'],
     daysFull: [
       'Monday',
       'Tuesday',
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday'
+      'Saturday',
+      'Sunday'
     ],
-    index: moment().isoWeekday() - 2,
+    index: moment().isoWeekday() - 1,
     classes: this.props.data
   };
 
@@ -57,7 +58,7 @@ export default class ClassList extends Component {
     if (this.state.classes) {
       let { index, days, daysFull } = this.state;
       let classes = [];
-      if (days[index]) {
+      if (days[index] && days[index] !== 'SUN') {
         classes = this.state.classes[days[index]].map((item, index) => {
           return (
             <div
@@ -94,8 +95,20 @@ export default class ClassList extends Component {
             </div>
           );
         });
+      } else {
+        classes = (
+          <div key={index} className='class_list_item'>
+            <div className='class_list_item_row row_two'>
+              <div className='class_list_item_class'>No Classes to show</div>
+              <div className='class_list_item_class_room'>-</div>
+            </div>
+            <div className='class_list_item_teacher_name' />
+            <div className='class_list_item_time'>--:--</div>
+            <div className='class_type'>-</div>
+          </div>
+        );
       }
-      let start_at = parseInt(moment().isoWeekday() - 2);
+      let start_at = parseInt(moment().isoWeekday() - 1);
       console.log(start_at);
       return (
         <div className='class_list_root'>
@@ -109,6 +122,7 @@ export default class ClassList extends Component {
               animationDuration={1000}
               startAt={start_at}
             >
+              <div className='flip_page_root'>{classes}</div>
               <div className='flip_page_root'>{classes}</div>
               <div className='flip_page_root'>{classes}</div>
               <div className='flip_page_root'>{classes}</div>
