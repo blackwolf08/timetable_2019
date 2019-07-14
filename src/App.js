@@ -19,6 +19,7 @@ class App extends Component {
           'https://cors-anywhere.herokuapp.com/https://timetablejiit.herokuapp.com/api/data'
         )
         .then(res => {
+          console.log(res);
           this.setState({
             data: res.data
           });

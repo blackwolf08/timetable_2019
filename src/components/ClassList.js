@@ -23,6 +23,36 @@ export default class ClassList extends Component {
     });
   };
 
+  getBackGroundColor = (starting_hour, day) => {
+    if (day === this.state.daysFull[moment().isoWeekday()]) {
+      let current_hour = parseInt(moment().format('H'));
+      starting_hour = parseInt(starting_hour);
+      if (current_hour === starting_hour && starting_hour < current_hour + 1) {
+        return '#D2EEF3';
+      }
+      if (current_hour > starting_hour) {
+        return '#FAE2E2';
+      }
+      if (starting_hour > current_hour) {
+        return '#D4EEE2';
+      }
+    }
+    return '';
+  };
+  getBoxShadow = starting_hour => {
+    let current_hour = parseInt(moment().format('H'));
+    starting_hour = parseInt(starting_hour);
+    if (current_hour === starting_hour && starting_hour < current_hour + 1) {
+      return '0 0 10px #D2EEF3';
+    }
+    if (current_hour > starting_hour) {
+      return '0 0 10px #FAE2E2';
+    }
+    if (starting_hour > current_hour) {
+      return '0 0 10px #D4EEE2';
+    }
+  };
+
   render() {
     if (this.state.classes) {
       let { index, days, daysFull } = this.state;
@@ -34,18 +64,8 @@ export default class ClassList extends Component {
               key={index}
               className='class_list_item'
               style={{
-                backgroundColor:
-                  parseInt(moment().format('h')) < parseInt(item.start)
-                    ? parseInt(moment().format('h')) + 1 < parseInt(item.start)
-                      ? '#FAE2E2'
-                      : '#FBE6A2'
-                    : '#D4EEE2',
-                boxShadow:
-                  parseInt(moment().format('h')) < parseInt(item.start)
-                    ? parseInt(moment().format('h')) + 1 < parseInt(item.start)
-                      ? '0 0 10px #FAE2E2'
-                      : '0 0 10px #FBE6A2'
-                    : '0 0 10px #D4EEE2'
+                backgroundColor: this.getBackGroundColor(item.time24, item.day),
+                boxShadow: this.getBoxShadow(item.time24, item.day)
               }}
             >
               <div className='class_list_item_row row_two'>
