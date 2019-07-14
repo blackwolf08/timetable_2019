@@ -9,16 +9,22 @@ class App extends Component {
     data: {}
   };
   componentDidMount() {
-    axios
-      .get(
-        'https://cors-anywhere.herokuapp.com/https://timetablejiit.herokuapp.com/api/data'
-      )
-      .then(res => {
-        console.log(res);
-        this.setState({
-          data: res.data
-        });
+    if (localStorage.getItem('data') && localStorage.getItem('data') !== '') {
+      this.setState({
+        data: JSON.parse(localStorage.getItem('data'))
       });
+    } else {
+      axios
+        .get(
+          'https://cors-anywhere.herokuapp.com/https://timetablejiit.herokuapp.com/api/data'
+        )
+        .then(res => {
+          this.setState({
+            data: res.data
+          });
+          localStorage.setItem('data', JSON.stringify(res.data));
+        });
+    }
   }
   render() {
     return (
