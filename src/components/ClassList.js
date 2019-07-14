@@ -18,8 +18,6 @@ export default class ClassList extends Component {
   };
 
   onPageChange = (index, direction) => {
-    console.log(index);
-
     this.setState({
       index
     });
@@ -37,13 +35,13 @@ export default class ClassList extends Component {
               className='class_list_item'
               style={{
                 backgroundColor:
-                  parseInt(moment().format('h')) > parseInt(item.start)
+                  parseInt(moment().format('h')) < parseInt(item.start)
                     ? parseInt(moment().format('h')) + 1 < parseInt(item.start)
                       ? '#FAE2E2'
                       : '#FBE6A2'
                     : '#D4EEE2',
                 boxShadow:
-                  parseInt(moment().format('h')) > parseInt(item.start)
+                  parseInt(moment().format('h')) < parseInt(item.start)
                     ? parseInt(moment().format('h')) + 1 < parseInt(item.start)
                       ? '0 0 10px #FAE2E2'
                       : '0 0 10px #FBE6A2'
@@ -55,27 +53,21 @@ export default class ClassList extends Component {
                 <div className='class_list_item_class_room'>{item.venue}</div>
               </div>
               <div className='class_list_item_teacher_name'>
-                {item.teachers[0] + ' ' + item.teachers[1]
-                  ? item.teachers[2]
-                    ? item.teachers[3]
-                      ? item.teachers[3]
-                      : item.teachers[2]
-                    : item.teachers[1]
-                  : ''}
+                {item.teachers[0]}
               </div>
               <div className='class_list_item_time'>
-                {item.start.length === 2
+                {item.start.length + 1 === 2
                   ? `${item.start}:00 - ${
                       item.type === 'Practical'
                         ? parseInt(item.start) + 1
                         : parseInt(item.start)
                     }:50`
-                  : `0${item.start}:00 - ${
+                  : `${item.start}:00 - ${
                       item.type === 'Practical'
                         ? parseInt(item.start) + 1 >= 10
-                          ? `${parseInt(item.start) + 1}:00`
-                          : `0${parseInt(item.start) + 1}:00`
-                        : `0${parseInt(item.start) + 1}:00`
+                          ? `${parseInt(item.start)}:50`
+                          : `${parseInt(item.start)}:50`
+                        : `${parseInt(item.start)}:50`
                     }`}
               </div>
               <div className='class_type'>{item.type}</div>

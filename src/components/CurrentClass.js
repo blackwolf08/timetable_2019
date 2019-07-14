@@ -11,20 +11,41 @@ export default class CurrentClass extends Component {
   };
 
   componentDidMount() {
+    let { days, index, classes } = this.state;
+    let day = days[index];
+    let classInfo = classes[day];
+    let OngoingClass = {
+      start: '0',
+      subject: 'No Class Right Now',
+      venue: '-',
+      teachers: '-'
+    };
+    classInfo.forEach(info => {
+      let a = parseInt(info.start);
+      let b = moment().format('h');
+      if (b > a && b < a + 1) {
+        OngoingClass = info;
+      }
+    });
+    let time;
+    if (OngoingClass.type === 'Lecture') {
+      time = 36000;
+    }
+    if (OngoingClass.type === 'Practical') {
+      time = 72000;
+    }
+
     setInterval(() => {
       this.setState({
         completed: this.state.completed + 1
       });
-    }, 1000);
+    }, time);
   }
   render() {
     if (this.state.classes) {
-      console.log(this.state.classes);
-
       let { days, index, classes } = this.state;
       let day = days[index];
       let classInfo = classes[day];
-      console.log(day, classInfo);
       let OngoingClass = {
         start: '0',
         subject: 'No Class Right Now',
@@ -53,25 +74,35 @@ export default class CurrentClass extends Component {
                 : OngoingClass.teachers[1]
               : ''}
           </div>
-          <div className='time'>
-            {OngoingClass.start.length === 2
-              ? `${OngoingClass.start}:00 - ${
-                  OngoingClass.type === 'Practical'
-                    ? parseInt(OngoingClass.start) + 1
-                    : parseInt(OngoingClass.start)
-                }:50`
-              : `0${OngoingClass.start}:00 - ${
-                  OngoingClass.type === 'Practical'
-                    ? parseInt(OngoingClass.start) + 1 >= 10
-                      ? `${parseInt(OngoingClass.start) + 1}:00`
-                      : `0${parseInt(OngoingClass.start) + 1}:00`
-                    : `0${parseInt(OngoingClass.start) + 1}:00`
-                }`}
-          </div>
+          {OngoingClass.start !== '0' && (
+            <div className='time'>
+              {OngoingClass.start.length + 1 === 2
+                ? `${OngoingClass.start}:00 - ${
+                    OngoingClass.type === 'Practical'
+                      ? parseInt(OngoingClass.start) + 1
+                      : parseInt(OngoingClass.start)
+                  }:50`
+                : `${OngoingClass.start}:00 - ${
+                    OngoingClass.type === 'Practical'
+                      ? parseInt(OngoingClass.start) + 1 >= 10
+                        ? `${parseInt(OngoingClass.start)}:50`
+                        : `${parseInt(OngoingClass.start)}:50`
+                      : `${parseInt(OngoingClass.start)}:50`
+                  }`}
+            </div>
+          )}
+          {OngoingClass.start === '0' && <div className='time'>--:--</div>}
+
           <div className='class_type'>Ongoing</div>
           <ProgressBar
             className='progress'
-            completed={this.state.completed > 100 ? 100 : this.state.completed}
+            completed={
+              OngoingClass.start === '0'
+                ? 0
+                : this.state.completed > 100
+                ? 100
+                : this.state.completed
+            }
           />
         </div>
       );
