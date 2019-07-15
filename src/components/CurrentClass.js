@@ -73,8 +73,9 @@ export default class CurrentClass extends Component {
           }
         });
       }
+      console.log(OngoingClass);
 
-      if (classInfo.length >= 1) {
+      if (classInfo.length >= 1 && Object.keys(OngoingClass).length > 2) {
         return (
           <div className='current_class_root' style={{ position: 'relative' }}>
             <div className='current_class_row row_one'>
