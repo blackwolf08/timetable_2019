@@ -18,7 +18,7 @@ export default class CurrentClass extends Component {
       start: '0',
       subject: 'No Class Right Now',
       venue: '-',
-      teachers: '-'
+      teachers: []
     };
     classInfo.forEach(info => {
       console.log(info);
@@ -29,19 +29,25 @@ export default class CurrentClass extends Component {
         OngoingClass = info;
       }
     });
-    let time;
-    if (OngoingClass.type === 'Lecture') {
-      time = 30000;
-    }
-    if (OngoingClass.type === 'Practical') {
-      time = 60000;
-    }
 
     setInterval(() => {
-      this.setState({
-        completed: this.state.completed + 1
-      });
-    }, time);
+      if (OngoingClass !== {} || OngoingClass !== '') {
+        let min = parseInt(moment().format('mm')) * 2;
+        if (min <= 100) {
+          this.setState({
+            completed: min
+          });
+        } else {
+          this.setState({
+            completed: 100
+          });
+        }
+      } else {
+        this.setState({
+          completed: 0
+        });
+      }
+    }, 1000);
   }
   render() {
     if (this.state.classes) {
@@ -49,13 +55,12 @@ export default class CurrentClass extends Component {
       let day = days[index];
       let classInfo = classes[day] || [];
       let OngoingClass = {};
-
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
             let a = parseInt(info.start);
-            let b = moment().format('H');
-            if (b > a && b < a + 1) {
+            let b = parseInt(moment().format('H'));
+            if (b === a && b < a + 1) {
               OngoingClass = info;
             }
           } else {
@@ -109,13 +114,7 @@ export default class CurrentClass extends Component {
             <div className='class_type'>Ongoing</div>
             <ProgressBar
               className='progress'
-              completed={
-                OngoingClass.start === '0'
-                  ? 0
-                  : this.state.completed > 100
-                  ? 100
-                  : this.state.completed
-              }
+              completed={this.state.completed}
             />
           </div>
         );

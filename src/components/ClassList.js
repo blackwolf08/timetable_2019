@@ -25,9 +25,10 @@ export default class ClassList extends Component {
   };
 
   getBackGroundColor = (starting_hour, day) => {
-    if (day === this.state.daysFull[moment().isoWeekday()]) {
+    if (day === this.state.daysFull[moment().isoWeekday() - 1]) {
       let current_hour = parseInt(moment().format('H'));
       starting_hour = parseInt(starting_hour);
+      console.log(current_hour, starting_hour);
       if (current_hour === starting_hour && starting_hour < current_hour + 1) {
         return '#D2EEF3';
       }
