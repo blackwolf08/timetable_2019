@@ -30,7 +30,7 @@ export default class CurrentClass extends Component {
       }
     });
     
-    funcrtion interval(minutes, multiplyFactor){
+    function interval(minutes, multiplyFactor){
       setInterval(() => {
       if (OngoingClass !== {} || OngoingClass !== '') {
         console.log(minutes, multiplyFactor); 
