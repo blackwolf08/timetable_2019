@@ -92,7 +92,7 @@ if(OngoingClass.type==='Practical'){
         OngoingClass = info;
       }
       }
-      else if {
+      else{
         let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
       console.log(a, b);
