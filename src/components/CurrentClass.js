@@ -108,7 +108,7 @@ if(OngoingClass.type==='Practical'){
       }
       console.log(OngoingClass);
 
-      if (classInfo.length >= 1 && Object.keys(OngoingClass).length > 2) {
+      if (classInfo.length >= 1 && Object.keys(OngoingClass).length >= 1) {
         return (
           <div className='current_class_root' style={{ position: 'relative' }}>
             <div className='current_class_row row_one'>
