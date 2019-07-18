@@ -51,7 +51,6 @@ export default class CurrentClass extends Component {
       }
     }, 1000);
   }
-    }
 
 
 if(OngoingClass.type==='Practical'){
@@ -59,7 +58,7 @@ if(OngoingClass.type==='Practical'){
   let multiplyFactor = 1.1;
   interval(min, multiplyFactor);
 }else{
-  interval(50, 1);
+  interval(50, 2);
 }
   
   render() {
