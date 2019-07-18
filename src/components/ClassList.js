@@ -120,7 +120,7 @@ export default class ClassList extends Component {
               responsive={true}
               loopForever={true}
               onPageChange={this.onPageChange}
-              animationDuration={1000}
+              animationDuration={300}
               startAt={start_at}
             >
               <div className='flip_page_root'>{classes}</div>
