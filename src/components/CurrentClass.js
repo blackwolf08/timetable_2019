@@ -29,10 +29,12 @@ export default class CurrentClass extends Component {
         OngoingClass = info;
       }
     });
-
-    setInterval(() => {
+    
+    funcrtion interval(minutes, multiplyFactor){
+      setInterval(() => {
       if (OngoingClass !== {} || OngoingClass !== '') {
-        let min = parseInt(moment().format('mm')) * 2;
+        console.log(minutes, multiplyFactor); 
+        let min = minutes * multiplyFactor;
         if (min <= 100) {
           this.setState({
             completed: min
@@ -49,6 +51,17 @@ export default class CurrentClass extends Component {
       }
     }, 1000);
   }
+    }
+
+
+if(OngoingClass.type==='Practical'){
+  let min = 110;
+  let multiplyFactor = 1.1;
+  interval(min, multiplyFactor);
+}else{
+  interval(50, 1);
+}
+  
   render() {
     if (this.state.classes) {
       let { days, index, classes } = this.state;
