@@ -58,7 +58,7 @@ export default class CurrentClass extends Component {
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
-            let a = parseInt(info.start);
+            let a = parseInt(info.time24);
             let b = parseInt(moment().format('H'));
             if (b === a && b < a + 1) {
               OngoingClass = info;
