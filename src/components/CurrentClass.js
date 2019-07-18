@@ -23,21 +23,18 @@ export default class CurrentClass extends Component {
     classInfo.forEach(info => {
       if(info.type === "Tutorial" || info.type === "Lecture")
       {
-        console.log(info);
       let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-      console.log(a, b);
-      if (b === a && b + 1 > a) {
+
         OngoingClass = info;
-      }
+      
       }
       else {
         let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-      console.log(a, b);
-      if ( b < a + 2 && b >= a){
+
         OngoingClass = info;
-      }
+      
       }
     });
     
@@ -84,21 +81,19 @@ if(OngoingClass.type==='Practical'){
           if (parseInt(moment().isoWeekday) !== 7) {
             if(info.type === "Tutorial" || info.type === "Lecture")
       {
-        console.log(info);
+
       let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-      console.log(a, b);
-      if (b === a && b + 1 > a) {
+
         OngoingClass = info;
-      }
+      
       }
       else{
         let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-      console.log(a, b);
-      if ( b < a + 2 && b >= a){
+
         OngoingClass = info;
-      }
+      
       }
           }
            else {
