@@ -60,6 +60,7 @@ if(OngoingClass.type==='Practical'){
 }else{
   interval(50, 2);
 }
+  }
   
   render() {
     if (this.state.classes) {
