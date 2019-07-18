@@ -21,28 +21,18 @@ export default class CurrentClass extends Component {
       teachers: []
     };
     classInfo.forEach(info => {
-      if(info.type === "Tutorial" || info.type === "Lecture")
-      {
+      console.log(info);
       let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-
+      console.log(a, b);
+      if (b === a && b + 1 > a) {
         OngoingClass = info;
-      
-      }
-      else {
-        let a = parseInt(info.time24);
-      let b = parseInt(moment().format('H'));
-
-        OngoingClass = info;
-      
       }
     });
-    
-    function interval(minutes, multiplyFactor){
-      setInterval(() => {
+
+    setInterval(() => {
       if (OngoingClass !== {} || OngoingClass !== '') {
-        console.log(minutes, multiplyFactor); 
-        let min = minutes * multiplyFactor;
+        let min = parseInt(moment().format('mm')) * 2;
         if (min <= 100) {
           this.setState({
             completed: min
@@ -59,17 +49,6 @@ export default class CurrentClass extends Component {
       }
     }, 1000);
   }
-
-
-if(OngoingClass.type==='Practical'){
-  let min = 110;
-  let multiplyFactor = 1.1;
-  interval(min, multiplyFactor);
-}else{
-  interval(50, 2);
-}
-  }
-  
   render() {
     if (this.state.classes) {
       let { days, index, classes } = this.state;
@@ -79,24 +58,12 @@ if(OngoingClass.type==='Practical'){
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
-            if(info.type === "Tutorial" || info.type === "Lecture")
-      {
-
-      let a = parseInt(info.time24);
-      let b = parseInt(moment().format('H'));
-
-        OngoingClass = info;
-      
-      }
-      else{
-        let a = parseInt(info.time24);
-      let b = parseInt(moment().format('H'));
-
-        OngoingClass = info;
-      
-      }
-          }
-           else {
+            let a = parseInt(info.time24);
+            let b = parseInt(moment().format('H'));
+            if (b === a && b < a + 1) {
+              OngoingClass = info;
+            }
+          } else {
             OngoingClass = {
               start: '0',
               subject: 'No Class Right Now',
@@ -108,7 +75,7 @@ if(OngoingClass.type==='Practical'){
       }
       console.log(OngoingClass);
 
-      if (classInfo.length >= 1 && Object.keys(OngoingClass).length >= 1) {
+      if (classInfo.length >= 1 && Object.keys(OngoingClass).length > 2) {
         return (
           <div className='current_class_root' style={{ position: 'relative' }}>
             <div className='current_class_row row_one'>
