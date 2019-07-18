@@ -82,12 +82,25 @@ if(OngoingClass.type==='Practical'){
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
-            let a = parseInt(info.time24);
-            let b = parseInt(moment().format('H'));
-            if (b === a && b < a + 1) {
-              OngoingClass = info;
-            }
-          } else {
+            if(info.type === "Tutorial" || info.type === "Lecture")
+      {
+        console.log(info);
+      let a = parseInt(info.time24);
+      let b = parseInt(moment().format('H'));
+      console.log(a, b);
+      if (b === a && b + 1 > a) {
+        OngoingClass = info;
+      }
+      }
+      else if {
+        let a = parseInt(info.time24);
+      let b = parseInt(moment().format('H'));
+      console.log(a, b);
+      if ( b < a + 2 && b >= a){
+        OngoingClass = info;
+      }
+      }
+           else {
             OngoingClass = {
               start: '0',
               subject: 'No Class Right Now',
