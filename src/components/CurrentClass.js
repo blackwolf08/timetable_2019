@@ -100,6 +100,7 @@ if(OngoingClass.type==='Practical'){
         OngoingClass = info;
       }
       }
+          }
            else {
             OngoingClass = {
               start: '0',
