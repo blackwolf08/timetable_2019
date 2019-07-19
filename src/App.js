@@ -14,17 +14,13 @@ class App extends Component {
         data: JSON.parse(localStorage.getItem('data'))
       });
     } else {
-      axios
-        .get(
-          'https://cors-anywhere.herokuapp.com/https://timetablejiit.herokuapp.com/api/data'
-        )
-        .then(res => {
-          console.log(res);
-          this.setState({
-            data: res.data
-          });
-          localStorage.setItem('data', JSON.stringify(res.data));
+      axios.get('https://api.myjson.com/bins/al769').then(res => {
+        console.log(res);
+        this.setState({
+          data: res.data
         });
+        localStorage.setItem('data', JSON.stringify(res.data));
+      });
     }
   }
   render() {
