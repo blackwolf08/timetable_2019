@@ -32,15 +32,34 @@ export default class CurrentClass extends Component {
 
     setInterval(() => {
       if (OngoingClass !== {} || OngoingClass !== '') {
-        let min = parseInt(moment().format('mm')) * 2;
-        if (min <= 100) {
-          this.setState({
-            completed: min
-          });
+        if (OngoingClass.type === 'Practical') {
+          let min;
+          if (parseInt(moment().format('H')) === OngoingClass.time24) {
+            min = parseInt(moment().format('mm'));
+          } else {
+            min = 50 + parseInt(moment().format('mm'));
+          }
+          if (min <= 100) {
+            this.setState({
+              completed: min
+            });
+          } else {
+            this.setState({
+              completed: 100
+            });
+          }
         } else {
-          this.setState({
-            completed: 100
-          });
+          let min = parseInt(moment().format('mm')) * 2;
+
+          if (min <= 100) {
+            this.setState({
+              completed: min
+            });
+          } else {
+            this.setState({
+              completed: 100
+            });
+          }
         }
       } else {
         this.setState({
@@ -58,7 +77,7 @@ export default class CurrentClass extends Component {
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
-            let a = parseInt(info.start);
+            let a = parseInt(info.time24);
             let b = parseInt(moment().format('H'));
             if (b === a && b < a + 1) {
               OngoingClass = info;
@@ -73,7 +92,6 @@ export default class CurrentClass extends Component {
           }
         });
       }
-      console.log(OngoingClass);
 
       if (classInfo.length >= 1 && Object.keys(OngoingClass).length > 2) {
         return (
