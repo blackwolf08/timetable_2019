@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CurrentClass from './components/CurrentClass';
 import ClassList from './components/ClassList';
+import NextClass from './components/NextClass';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import axios from 'axios';
@@ -37,6 +38,7 @@ class App extends Component {
           {Object.keys(this.state.data).length > 2 && (
             <>
               <CurrentClass data={this.state.data} />
+              <NextClass data={this.state.data} />
               <ClassList data={this.state.data} />
             </>
           )}
