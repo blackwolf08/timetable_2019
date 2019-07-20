@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import CurrentClass from './components/CurrentClass';
 import ClassList from './components/ClassList';
 import NextClass from './components/NextClass';
+import { animateScroll as scroll } from 'react-scroll';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import axios from 'axios';
 class App extends Component {
   state = {
     data: {}
+  };
+  scrollToTop = () => {
+    scroll.scrollToTop();
   };
   componentDidMount() {
     if (localStorage.getItem('data') && localStorage.getItem('data') !== '') {
@@ -40,6 +45,9 @@ class App extends Component {
               <CurrentClass data={this.state.data} />
               <NextClass data={this.state.data} />
               <ClassList data={this.state.data} />
+              <button className='scroll' onClick={this.scrollToTop}>
+                Top
+              </button>
             </>
           )}
         </div>
