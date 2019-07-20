@@ -24,19 +24,39 @@ export default class ClassList extends Component {
     });
   };
 
-  getBackGroundColor = (starting_hour, day) => {
+  getBackGroundColor = (starting_hour, day, type) => {
     if (day === this.state.daysFull[moment().isoWeekday() - 1]) {
-      let current_hour = parseInt(moment().format('H'));
-      starting_hour = parseInt(starting_hour);
-      console.log(current_hour, starting_hour);
-      if (current_hour === starting_hour && starting_hour < current_hour + 1) {
-        return '#D2EEF3';
-      }
-      if (current_hour > starting_hour) {
-        return '#FAE2E2';
-      }
-      if (starting_hour > current_hour) {
-        return '#D4EEE2';
+      if (type === 'Practical') {
+        let current_hour = parseInt(moment().format('H'));
+        console.log(starting_hour, current_hour, type);
+        starting_hour = parseInt(starting_hour);
+        if (
+          current_hour === starting_hour ||
+          starting_hour + 1 === current_hour
+        ) {
+          return '#D2EEF3';
+        }
+        if (current_hour >= starting_hour + 2) {
+          return '#FAE2E2';
+        }
+        if (starting_hour > current_hour) {
+          return '#D4EEE2';
+        }
+      } else {
+        let current_hour = parseInt(moment().format('H'));
+        starting_hour = parseInt(starting_hour);
+        if (
+          current_hour === starting_hour &&
+          starting_hour < current_hour + 1
+        ) {
+          return '#D2EEF3';
+        }
+        if (current_hour > starting_hour) {
+          return '#FAE2E2';
+        }
+        if (starting_hour > current_hour) {
+          return '#D4EEE2';
+        }
       }
     }
     return '';
@@ -66,8 +86,12 @@ export default class ClassList extends Component {
               key={index}
               className='class_list_item'
               style={{
-                backgroundColor: this.getBackGroundColor(item.time24, item.day),
-                boxShadow: this.getBoxShadow(item.time24, item.day)
+                backgroundColor: this.getBackGroundColor(
+                  item.time24,
+                  item.day,
+                  item.type
+                ),
+                boxShadow: this.getBoxShadow(item.time24, item.day, item.type)
               }}
             >
               <div className='class_list_item_row row_two'>
@@ -120,7 +144,7 @@ export default class ClassList extends Component {
               responsive={true}
               loopForever={true}
               onPageChange={this.onPageChange}
-              animationDuration={1000}
+              animationDuration={300}
               startAt={start_at}
             >
               <div className='flip_page_root'>{classes}</div>
