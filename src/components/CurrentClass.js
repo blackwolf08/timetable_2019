@@ -21,10 +21,8 @@ export default class CurrentClass extends Component {
       teachers: []
     };
     classInfo.forEach(info => {
-      console.log(info);
       let a = parseInt(info.time24);
       let b = parseInt(moment().format('H'));
-      console.log(a, b);
       if (b === a && b + 1 > a) {
         OngoingClass = info;
       }
@@ -77,10 +75,18 @@ export default class CurrentClass extends Component {
       if (!(day === 'SUN')) {
         classInfo.forEach(info => {
           if (parseInt(moment().isoWeekday) !== 7) {
-            let a = parseInt(info.time24);
-            let b = parseInt(moment().format('H'));
-            if (b === a && b < a + 1) {
-              OngoingClass = info;
+            if (info.type === 'Practical') {
+              let a = parseInt(info.time24);
+              let b = parseInt(moment().format('H'));
+              if (b === a || b - 1 === a) {
+                OngoingClass = info;
+              }
+            } else {
+              let a = parseInt(info.time24);
+              let b = parseInt(moment().format('H'));
+              if (b === a && b < a + 1) {
+                OngoingClass = info;
+              }
             }
           } else {
             OngoingClass = {
