@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import CurrentClass from './components/CurrentClass';
 import ClassList from './components/ClassList';
 import NextClass from './components/NextClass';
+import { animateScroll as scroll } from 'react-scroll';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import axios from 'axios';
@@ -9,19 +11,26 @@ class App extends Component {
   state = {
     data: {}
   };
+  scrollToTop = () => {
+    scroll.scrollToTop();
+  };
   componentDidMount() {
     if (localStorage.getItem('data') && localStorage.getItem('data') !== '') {
       this.setState({
         data: JSON.parse(localStorage.getItem('data'))
       });
     } else {
-      axios.get('https://api.myjson.com/bins/al769').then(res => {
-        console.log(res);
-        this.setState({
-          data: res.data
+      axios
+        .get(
+          'https://cors-anywhere.herokuapp.com/https://timetablejiit.herokuapp.com/api/data'
+        )
+        .then(res => {
+          console.log(res);
+          this.setState({
+            data: res.data
+          });
+          localStorage.setItem('data', JSON.stringify(res.data));
         });
-        localStorage.setItem('data', JSON.stringify(res.data));
-      });
     }
   }
   render() {
@@ -36,6 +45,9 @@ class App extends Component {
               <CurrentClass data={this.state.data} />
               <NextClass data={this.state.data} />
               <ClassList data={this.state.data} />
+              <button className='scroll' onClick={this.scrollToTop}>
+                Top
+              </button>
             </>
           )}
         </div>
