@@ -23,17 +23,13 @@ class App extends Component {
           <nav className='navbar'>
             <p className='logo logo_p'>Time Table</p>
           </nav>
-          {Object.keys(this.state.data).length > 2 && (
-            <>
               <CurrentClass data={this.state.data} />
               <NextClass data={this.state.data} />
               <ClassList data={this.state.data} />
               <button className='scroll' onClick={this.scrollToTop}>
                 Top
               </button>
-            </>
-          )}
-        </div>
+      </div>
       </PerfectScrollbar>
     );
   }
